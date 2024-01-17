@@ -1,6 +1,6 @@
 // Get all thumbnails and hero images
 let thumbnails = document.querySelectorAll(".thumbnail");
-let heroImages = document.querySelectorAll(".Image");
+let heroImages = document.querySelectorAll(".image");
 
 // Add click event listener to each thumbnail
 thumbnails.forEach((thumbnail, index) => {
@@ -13,7 +13,7 @@ thumbnails.forEach((thumbnail, index) => {
 });
 
 //Opens bigger image
-let bigImage = document.querySelector(".ImageCarousel");
+let bigImage = document.querySelector(".imageCarousel");
 
 function enlarge() {
   let hidden = document.querySelector(".hiddenContent");

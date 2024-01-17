@@ -76,20 +76,25 @@ main {
   margin: auto;
 }
 
-.Image {
+.imageCarousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
   position: absolute;
   top: 150px;
-  left: 285px;
   width: 460px;
   padding: 20px;
   border-radius: 35px;
 }
 
 .thumbnailCarousel {
-  position: absolute;
-  top: 610px;
-  left: 305px;
+  position: relative;
+  top: 395px;
   display: flex;
+  padding: 20px;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -132,7 +137,7 @@ main {
   position: relative;
   z-index: 1;
   top: 320px;
-  left:-210px;
+  left: -210px;
 }
 
 .next {
@@ -156,6 +161,13 @@ main {
 .thumbnail1 {
   width: 90px;
   border-radius: 8px;
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  width: 30vw;
 }
 
 .rightContent {
