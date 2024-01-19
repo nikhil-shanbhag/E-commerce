@@ -1,10 +1,11 @@
 // Get all thumbnails and hero images
-let thumbnails = document.querySelectorAll(".thumbnail");
-let images = document.querySelectorAll(".image");
+const thumbnails = document.querySelectorAll(".thumbnail");
+const images = document.querySelectorAll(".image");
+const bigImage = document.querySelector(".imageCarousel");
 
 // Add click event listener to each thumbnail
-thumbnails.forEach((thumbnail, index) => {
-  thumbnail.addEventListener("click", function () {
+thumbnails.forEach((thumbnail) => {
+  thumbnail.addEventListener("click", () => {
     // Change the src of all images to match the clicked thumbnail
     images.forEach((image) => {
       image.src = thumbnail.src.replace("-thumbnail", "");
@@ -12,147 +13,187 @@ thumbnails.forEach((thumbnail, index) => {
   });
 });
 
-//Opens bigger image
-let bigImage = document.querySelector(".imageCarousel");
-
-function enlarge() {
-  console.log("CLICKED");
-  let hidden = document.querySelector(".hiddenContent");
-  if (hidden.style.display === "none") {
-    hidden.style.display = "flex";
-    hidden.style.visibility = "visible";
-  } else {
-    hidden.style.display = "none";
-    hidden.style.visibility = "hidden";
-  }
+// Function to toggle visibility of hidden content
+function toggleHiddenContent() {
+  const hiddenContent = document.querySelector(".hiddenContent");
+  const isHidden = hiddenContent.style.display === "none";
+  hiddenContent.style.display = isHidden ? "flex" : "none";
+  hiddenContent.style.visibility = isHidden ? "visible" : "hidden";
 }
 
-bigImage.addEventListener("click", enlarge);
+// Event listener for enlarging image
+bigImage.addEventListener("click", toggleHiddenContent);
+
+// Function to update image
+function updateImage(index, hiddenImages) {
+  hiddenImages.forEach((img, imgIndex) => {
+    img.style.display = imgIndex === index ? "block" : "none";
+  });
+}
 
 // Previous, next, and close
-window.onload = function () {
+window.onload = () => {
   let currentImageIndex = 0;
   const hiddenImages = Array.from(document.querySelectorAll(".hiddenImage"));
   const thumbnails = Array.from(document.querySelectorAll(".thumbnail1"));
 
-  function updateImage() {
-    hiddenImages.forEach((img, index) => {
-      img.style.display = index === currentImageIndex ? "block" : "none";
-    });
-  }
-
-  document.querySelector(".previous").addEventListener("click", function () {
+  // Event listener for previous button
+  document.querySelector(".previous").addEventListener("click", () => {
     if (currentImageIndex > 0) {
       currentImageIndex--;
-      updateImage();
+      updateImage(currentImageIndex, hiddenImages);
     }
   });
 
-  document.querySelector(".next").addEventListener("click", function () {
+  // Event listener for next button
+  document.querySelector(".next").addEventListener("click", () => {
     if (currentImageIndex < hiddenImages.length - 1) {
       currentImageIndex++;
-      updateImage();
+      updateImage(currentImageIndex, hiddenImages);
     }
   });
 
-  document.querySelector(".close").addEventListener("click", function () {
+  // Event listener for close button
+  document.querySelector(".close").addEventListener("click", () => {
     document.querySelector(".hiddenContent").style.display = "none";
   });
 
+  // Event listener for thumbnail click
   thumbnails.forEach((thumbnail, index) => {
-    thumbnail.addEventListener("click", function () {
+    thumbnail.addEventListener("click", () => {
       currentImageIndex = index;
-      updateImage();
+      updateImage(currentImageIndex, hiddenImages);
     });
   });
 
-  updateImage();
+  updateImage(currentImageIndex, hiddenImages);
 };
 
 // Cart object
 let cart = {
   items: [],
   total: 0,
-};
+  quantity: 0,
 
-// Quantity variable
-let quantity = 0;
+  // Function to toggle cart visibility
+  toggleCart: function () {
+    let cartElement = document.querySelector(".cart-items");
+    cartElement.style.display =
+      cartElement.style.display === "none" ? "block" : "none";
+  },
 
-// Function to toggle cart visibility
-function toggleCart() {
-  let cart = document.querySelector(".cart .cart-items");
-  cart.style.display = cart.style.display === "none" ? "block" : "none";
-}
+  // Function to update quantity display
+  updateQuantityDisplay: function () {
+    document.querySelector(
+      ".quantity"
+    ).innerHTML = `<img src="images/icon-minus.svg" alt="" />${this.quantity}<img src="images/icon-plus.svg" alt="" />`;
+  },
 
-// Function to update quantity display
-function updateQuantityDisplay() {
-  document.querySelector(
-    ".quantity"
-  ).innerHTML = `<img src="images/icon-minus.svg" alt="" />${quantity}<img src="images/icon-plus.svg" alt="" srcset="" />`;
-}
+  // Function to add quantity
+  addQuantity: function () {
+    this.quantity++;
+    this.updateQuantityDisplay();
+  },
 
-// Function to add quantity
-function addQuantity() {
-  quantity++;
-  updateQuantityDisplay();
-}
+  // Function to remove quantity
+  removeQuantity: function () {
+    if (this.quantity > 0) {
+      this.quantity--;
+      this.updateQuantityDisplay();
+    }
+  },
 
-// Function to remove quantity
-function removeQuantity() {
-  if (quantity > 0) {
-    quantity--;
-    updateQuantityDisplay();
-  }
-}
+  // Function to handle quantity button click
+  handleQuantityButtonClick: function (event) {
+    if (event.target.src.includes("icon-plus.svg")) {
+      this.addQuantity();
+    } else if (event.target.src.includes("icon-minus.svg")) {
+      this.removeQuantity();
+    }
+  },
 
-// Function to handle quantity button click
-function handleQuantityButtonClick(event) {
-  if (event.target.src.includes("icon-plus.svg")) {
-    addQuantity();
-  } else if (event.target.src.includes("icon-minus.svg")) {
-    removeQuantity();
-  }
-}
+  // Function to add item to cart
+  addToCart: function () {
+    let quantity = parseInt(document.querySelector(".quantity").innerText);
+    let itemName = "Fall Limited Edition Sneakers";
+    let itemPrice = 125.0;
+    let existingItemIndex = this.items.findIndex(
+      (item) => item.name === itemName
+    );
 
-// Function to add item to cart
-function addToCart() {
-  let quantity = parseInt(document.querySelector(".quantity").innerText);
-  if (quantity > 0) {
+    if (quantity === 0) {
+      this.clearCart();
+    } else if (existingItemIndex !== -1) {
+      this.updateExistingItem(existingItemIndex, quantity, itemPrice);
+    } else {
+      this.addNewItem(quantity, itemName, itemPrice);
+    }
+    this.updateCart();
+  },
+
+  clearCart: function () {
+    this.items = [];
+    this.total = 0;
+    document.querySelector(".cart-items .addeditems").innerHTML =
+      "Your cart is empty.";
+  },
+
+  updateExistingItem: function (existingItemIndex, quantity, itemPrice) {
+    let quantityDifference = quantity - this.items[existingItemIndex].quantity;
+    this.items[existingItemIndex].quantity = quantity;
+    this.total += itemPrice * quantityDifference;
+  },
+
+  addNewItem: function (quantity, itemName, itemPrice) {
     let item = {
-      name: "Fall Limited Edition Sneakers",
-      price: 125.0,
+      name: itemName,
+      price: itemPrice,
       quantity: quantity,
     };
-    cart.items.push(item);
-    cart.total += item.price * item.quantity;
-    updateCart();
-  }
-}
+    this.items.push(item);
+    this.total += itemPrice * quantity;
+  },
 
-// Function to update cart
-function updateCart() {
-  let cartItemsDiv = document.querySelector(".cart-items .addeditems");
-  cartItemsDiv.innerHTML = "";
-  cart.items.forEach(function (item, index) {
-    let itemDiv = document.createElement("div");
-    itemDiv.innerHTML = `<img width="60px" src="images/image-product-1-thumbnail.jpg" alt="" />
-                         <p>${item.name} $${item.price.toFixed(2)} x ${
-      item.quantity
-    } $${(item.price * item.quantity).toFixed(2)}</p>
-                         <img class="delete" src="images/icon-delete.svg" alt="" />`;
-    cartItemsDiv.appendChild(itemDiv);
+  // Function to update cart
+  updateCart: function () {
+    let cartItemsDiv = document.querySelector(".cart-items .addeditems");
+    let itemCountElement = document.getElementById("item-count"); // Assuming you have an element with id "item-count" to display the number of items in the cart
+    cartItemsDiv.innerHTML = "";
 
-    // Add event listener to the delete button
-    itemDiv.querySelector(".delete").addEventListener("click", function () {
-      cart.items.splice(index, 1);
-      updateCart();
-    });
-  });
-}
+    if (this.items.length === 0) {
+      cartItemsDiv.innerHTML = "Your cart is empty.";
+      itemCountElement.innerText = "0"; // Update item count display to 0 when cart is empty
+    } else {
+      let totalItems = this.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      ); // Calculate total number of items in the cart
+      itemCountElement.innerText = totalItems.toString(); // Update item count display
+
+      this.items.forEach(function (item, index) {
+        let itemDiv = document.createElement("div");
+        itemDiv.innerHTML = `<img width="40px" src="images/image-product-1-thumbnail.jpg" alt="" />
+                             <p>${item.name} $${item.price.toFixed(2)} x ${
+          item.quantity
+        } <b>$${(item.price * item.quantity).toFixed(2)}<b></p>
+                             <img height="16px" class="delete" src="images/icon-delete.svg" alt="" />`;
+        cartItemsDiv.appendChild(itemDiv);
+        itemDiv.querySelector(".delete").addEventListener("click", function () {
+          cart.items.splice(index, 1);
+          cart.updateCart();
+        });
+      });
+    }
+  },
+};
 
 // Event listeners
-document.getElementById("cart-icon").addEventListener("click", toggleCart);
-document
-  .querySelector(".quantity")
-  .addEventListener("click", handleQuantityButtonClick);
-document.querySelector(".addToCart").addEventListener("click", addToCart);
+document.getElementById("cart-icon").addEventListener("click", function () {
+  cart.toggleCart();
+});
+document.querySelector(".quantity").addEventListener("click", function (event) {
+  cart.handleQuantityButtonClick(event);
+});
+document.querySelector(".addToCart").addEventListener("click", function () {
+  cart.addToCart();
+});
