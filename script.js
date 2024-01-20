@@ -197,3 +197,6 @@ document.querySelector(".quantity").addEventListener("click", function (event) {
 document.querySelector(".addToCart").addEventListener("click", function () {
   cart.addToCart();
 });
+
+
+

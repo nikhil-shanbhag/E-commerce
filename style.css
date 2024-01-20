@@ -20,6 +20,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-height: 100vh;
   font-family: "Kumbh Sans", sans-serif;
   background: var(--White);
 }
@@ -27,8 +28,8 @@ body {
 header {
   display: flex;
   align-items: center;
-  gap: 500px;
-  height: 70px;
+  gap: 20em;
+  height: 4.6em;
   padding: 20px 0;
   border-bottom: 1px solid var(--Grayishblue);
 }
@@ -36,12 +37,12 @@ header {
 .navbarLeft {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 3em;
 }
 
 .list ul li {
   display: flex;
-  gap: 35px;
+  gap: 2em;
   list-style: none;
 }
 
@@ -61,7 +62,7 @@ header {
 .navbarRight {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 3em;
 }
 
 .cart {
@@ -150,46 +151,47 @@ b {
   border-radius: 25px;
 }
 
+.hamburger {
+  display: none;
+}
+
 main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin: auto;
+  display: flex;
+  margin: 0 auto;
 }
 
 .leftContent {
   display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  width: 30vw;
+  justify-content: center;
+  width: 100%;
+}
+
+.rightContent {
+ width: 100%;
 }
 
 .imageCarousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  top: 100px;
+  width: 430px;
+  
 }
 
-.image {
+.imageCarousel img {
   position: absolute;
-  top: 150px;
-  width: 460px;
-  padding: 20px;
-  border-radius: 35px;
+  width: 100%;
+  border-radius: 15px;
 }
 
 .thumbnailCarousel {
-  position: relative;
-  top: 420px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  position: absolute;
+  top: 630px;
+  display: inline-flex;
+  gap: 28px;
 }
 
 .border {
-  height: 96%;
+  height: 87px;
   border-radius: 12px;
   border: 3px solid transparent;
 }
@@ -200,7 +202,7 @@ main {
 }
 
 .thumbnail {
-  width: 85px;
+  width: 83px;
   border-radius: 7px;
 }
 
@@ -292,14 +294,8 @@ img {
   opacity: 0.8;
 }
 
-.rightContent {
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  width: 30vw;
-}
-
 h6 {
+  margin-top: 135px;
   color: var(--Orange);
   padding: 20px;
 }
@@ -312,8 +308,7 @@ h1 {
 .description {
   color: var(--Darkgrayishblue);
   padding: 20px;
-  width: 35vw;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .discountPrice {
@@ -352,7 +347,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   border: none;
-  width: 140px;
+  width: 150px;
   border-radius: 6px;
   padding: 12px;
   font-size: 15px;
@@ -371,6 +366,7 @@ h1 {
   gap: 13px;
   border: none;
   border-radius: 6px;
+  width: 240px;
   padding: 12px 70px;
   color: var(--White);
   background: var(--Orange);
@@ -384,6 +380,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
 }
 
 .attribution {
@@ -396,3 +393,100 @@ footer {
   text-decoration: none;
   color: #3d51a2;
 }
+
+@media screen and (max-width: 1100px) {
+  header {
+    height: 100%;
+    gap: 6em;
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .list {
+    display: none;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image {
+    top: 70px;
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .imageCarousel {
+    top: -75px;
+  }
+
+  .imageCarousel img {
+    border-radius: 0;
+  }
+
+  .thumbnailCarousel {
+    display: none;
+  }
+
+
+
+
+
+
+
+  .rightContent {
+    margin-top: 280px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .description {
+    width: 100%;
+  }
+
+  .btn {
+    flex-direction: column;
+  }
+
+  .quantity {
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+  }
+
+  .buy {
+    width: 90vw;
+    z-index: 1;
+    left: -298px;
+  }
+
+  .hiddenImage {
+    width: 100%;
+  }
+
+  .hiddenThumbnail {
+    gap: 14px;
+  }
+
+  .close {
+    right: -180px;
+  }
+
+  .previous {
+    left: -180px;
+  }
+
+  .next {
+    right: -180px;
+  }
+}
+
