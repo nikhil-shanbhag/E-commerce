@@ -199,4 +199,20 @@ document.querySelector(".addToCart").addEventListener("click", function () {
 });
 
 
+document.querySelector(".hamburger").addEventListener("click", () => {
+  console.log("clicked")
+  const navList = document.querySelector(".nav-list");
+  if (navList.style.display === "none") {
+    navList.style.display = "flex";
+  } else {
+    navList.style.display = "none";
+  }
+});
+
+document.querySelector(".nav-close").addEventListener("click", () => {
+  document.querySelector(".nav-list").style.display = "none";
+});
+
+
+
 
