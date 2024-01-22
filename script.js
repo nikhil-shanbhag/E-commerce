@@ -198,9 +198,8 @@ document.querySelector(".addToCart").addEventListener("click", function () {
   cart.addToCart();
 });
 
-
+// Hamburger open close
 document.querySelector(".hamburger").addEventListener("click", () => {
-  console.log("clicked")
   const navList = document.querySelector(".nav-list");
   if (navList.style.display === "none") {
     navList.style.display = "flex";
@@ -212,7 +211,3 @@ document.querySelector(".hamburger").addEventListener("click", () => {
 document.querySelector(".nav-close").addEventListener("click", () => {
   document.querySelector(".nav-list").style.display = "none";
 });
-
-
-
-

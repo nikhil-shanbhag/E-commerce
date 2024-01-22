@@ -41,6 +41,10 @@ header {
   gap: 3em;
 }
 
+.nav-list {
+  display: none;
+}
+
 .list ul li {
   display: flex;
   gap: 2em;
@@ -153,6 +157,10 @@ b {
 }
 
 .hamburger {
+  display: none;
+}
+
+.nav-close {
   display: none;
 }
 
@@ -398,7 +406,7 @@ footer {
   color: #3d51a2;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 8000px) {
   header {
     gap: 14em;
   }
@@ -422,6 +430,10 @@ footer {
     width: 69px;
   }
 
+  main{
+    gap: 35px;
+  }
+
   h6 {
     margin-top: 66px;
   }
@@ -437,6 +449,11 @@ footer {
   .hiddenContent {
     width: 100%;
   }
+
+  .nav-list {
+    display: block;
+  }
+
 }
 
 @media screen and (max-width: 912px) {
@@ -449,11 +466,8 @@ footer {
     cursor: pointer;
   }
 
-  /* .list {
+  .nav-list {
     display: none;
-  } */
-
-  .nav-list{
     position: fixed;
     z-index: 1;
     top: 0;
@@ -462,41 +476,31 @@ footer {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
   }
-  
-  .list ul li{
+
+  .list ul li {
     background: white;
     height: 100vh;
     width: 20vw;
     flex-direction: column;
   }
 
-  .list ul li a{
+  .list ul li a {
     padding: 0 10px;
     line-height: 0px;
     color: var(--Black);
   }
 
-  .nav-close{
+  .list ul li a:hover {
+    color: var(--Darkgrayishblue);
+    border-bottom: none;
+  }
+
+  .nav-close {
+    display: block;
     position: relative;
     top: 10px;
-    left: 145px;
+    left: 130px;
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   main {
     gap: 170px;
@@ -544,6 +548,15 @@ footer {
     left: -263px;
   }
 
+  .list ul li {
+    width: 30vw;
+  }
+
+  .nav-close {
+    left: 135px;
+  }
+
+
 }
 
 @media screen and (max-width: 440px) {
@@ -590,12 +603,25 @@ footer {
     right: -150px;
   }
 
-  .close{
+  .close {
     right: -150px;
   }
 
   .list ul li {
     width: 40vw;
+  }
+
+  .navbarLeft {
+    gap: 2em;
+  }
+
+  .nav-close {
+    left: 135px;
+  }
+
+  .list ul li a:hover {
+    color: var(--Darkgrayishblue);
+    border-bottom: none;
   }
 }
 
@@ -615,10 +641,15 @@ footer {
     left: -230px;
   }
 
+  .navbarLeft {
+    gap: 1em;
+  }
+
+  .nav-list {
+    display: none;
+  }
+
+  .nav-close {
+    left: 125px;
+  }
 }
-
-
-
-
-
-
